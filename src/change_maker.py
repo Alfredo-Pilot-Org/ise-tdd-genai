@@ -8,6 +8,8 @@ def make_change(amount_cents: int, coins: list[int] | None = None) -> dict[int, 
         raise ValueError("amount_cents must be >= 0")
     if coins is None:
         coins = DEFAULT_COINS
+    if any(c <= 0 for c in coins):
+        raise ValueError("coin denominations must be positive")
     # Don't mutate input: work with a sorted copy
     coins_sorted = sorted(set(coins), reverse=True)
     if amount_cents == 0:
