@@ -46,6 +46,12 @@ def test_negative_amount_raises():
     with pytest.raises(ValueError):
         make_change(-1)
 
+def test_negative_coin_denomination_raises():
+    """Invalid coins (e.g. negative) must raise ValueError, not IndexError."""
+    from src.change_maker import make_change
+    with pytest.raises(ValueError):
+        make_change(10, coins=[5, -1, 1])
+
 def test_does_not_mutate_coins_list():
     from src.change_maker import make_change
     coins = [10, 6, 1]
